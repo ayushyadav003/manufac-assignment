@@ -1,1 +1,0 @@
-# manufac-assignment
