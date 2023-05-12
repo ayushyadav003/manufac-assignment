@@ -73,13 +73,15 @@ export default function Tables() {
   const checkGamma = (type, item) => {
     if (type === "gamma") {
       let num =
-        (typeof item["Ash"] === "number"
+        ((typeof item["Ash"] === "number"
           ? item["Ash"]
-          : parseFloat(item["Ash"]) + typeof item["Hue"]) === "number"
-          ? item["Hue"]
-          : parseFloat(item["Hue"]) / typeof item["Magnesium"] === "number"
+          : parseFloat(item["Ash"])) *
+          (typeof item["Hue"] === "number"
+            ? item["Hue"]
+            : parseFloat(item["Hue"]))) /
+        (typeof item["Magnesium"] === "number"
           ? item["Magnesium"]
-          : parseFloat(item["Magnesium"]);
+          : parseFloat(item["Magnesium"]));
       return num;
     } else {
       let num =
@@ -121,7 +123,7 @@ export default function Tables() {
         </tr>
       </table>
 
-      <h2 style={{ marginTop: "2rem" }}>Flavanoids (Mean, Median, Mode)</h2>
+      <h2 style={{ marginTop: "2rem" }}>Gamma (Mean, Median, Mode)</h2>
       <table style={{ margin: "auto" }}>
         <tr>
           <th>Measure</th>
