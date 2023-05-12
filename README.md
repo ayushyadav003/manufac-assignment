@@ -1,5 +1,5 @@
-![tables-ss](https://github.com/ayushyadav003/manufac-assignment/assets/76594825/d56aa699-ec52-42a6-a611-3d37e88a879e)
 
+![tables-ss](https://github.com/ayushyadav003/manufac-assignment/assets/76594825/d9c9edb8-8f09-4717-97df-273f4da3ca7d)
 
 # Getting Started with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
