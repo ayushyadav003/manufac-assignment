@@ -17,29 +17,27 @@ export default function Tables() {
 
   //   mean calculator
   function calculateClassMean(data, className, type) {
-    console.log("className", className);
     let classData = data.filter((item) => item.Alcohol === className);
 
-    let sum = classData.reduce(
-      (acc, item) =>
-        acc + type === "gamma"
-          ? (item["Ash"] + item["Hue"]) / item["Magnesium"]
-          : item.Flavanoids,
-      0
-    );
+    // let sum = classData.reduce(
+    //   (acc, item) =>
+    //     acc + type === "gamma"
+    //       ? (item["Ash"] + item["Hue"]) / item["Magnesium"]
+    //       : item.Flavanoids,
+    //   0
+    // );
+    let sum = 0;
+    for (var item of classData) {
+      let num = checkGamma(type, item);
+      sum += num;
+    }
     return (sum / classData.length).toFixed(3);
   }
 
   //   median calculation
   function calculateClassMedian(data, className, type) {
     let classData = data.filter((item) => item.Alcohol === className);
-    let sortedData = classData
-      .map((item) =>
-        type === "gamma"
-          ? (item["Ash"] + item["Hue"]) / item["Magnesium"]
-          : item.Flavanoids
-      )
-      .sort();
+    let sortedData = classData.map((item) => checkGamma(type, item)).sort();
     let mid = Math.floor(sortedData.length / 2);
     return (
       sortedData.length % 2 !== 0
@@ -56,10 +54,8 @@ export default function Tables() {
     let maxFrequency = 0;
     let mode = null;
     for (let i = 0; i < classData.length; i++) {
-      let num =
-        type === "gamma"
-          ? classData[i].Ash + classData[i]["Hue"] / classData[i].Magnesium
-          : classData[i].Flavanoids;
+      let num = checkGamma(type, classData[i]);
+      console.log(checkGamma(type, classData[i]));
       if (frequency[num]) {
         frequency[num]++;
       } else {
@@ -71,10 +67,29 @@ export default function Tables() {
         mode = num;
       }
     }
-    return typeof mode === "number"
-      ? mode.toFixed(3)
-      : mode.split(".").slice(0, 2).join(".");
+    return mode.toFixed(3);
   }
+
+  const checkGamma = (type, item) => {
+    if (type === "gamma") {
+      let num =
+        (typeof item["Ash"] === "number"
+          ? item["Ash"]
+          : parseFloat(item["Ash"]) + typeof item["Hue"]) === "number"
+          ? item["Hue"]
+          : parseFloat(item["Hue"]) / typeof item["Magnesium"] === "number"
+          ? item["Magnesium"]
+          : parseFloat(item["Magnesium"]);
+      return num;
+    } else {
+      let num =
+        typeof item["Flavanoids"] === "number"
+          ? item["Flavanoids"]
+          : parseFloat(item["Flavanoids"]);
+
+      return num;
+    }
+  };
 
   return (
     <div>
