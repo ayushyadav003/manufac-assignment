@@ -18,14 +18,6 @@ export default function Tables() {
   //   mean calculator
   function calculateClassMean(data, className, type) {
     let classData = data.filter((item) => item.Alcohol === className);
-
-    // let sum = classData.reduce(
-    //   (acc, item) =>
-    //     acc + type === "gamma"
-    //       ? (item["Ash"] + item["Hue"]) / item["Magnesium"]
-    //       : item.Flavanoids,
-    //   0
-    // );
     let sum = 0;
     for (var item of classData) {
       let num = checkGamma(type, item);
@@ -49,13 +41,11 @@ export default function Tables() {
   //   mode calculation
   function calculateClassMode(data, className, type) {
     let classData = data.filter((item) => item.Alcohol === className);
-
     let frequency = {};
     let maxFrequency = 0;
     let mode = null;
     for (let i = 0; i < classData.length; i++) {
       let num = checkGamma(type, classData[i]);
-      console.log(checkGamma(type, classData[i]));
       if (frequency[num]) {
         frequency[num]++;
       } else {
